@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/niagara': {
-        target: 'https://crowd-navigation-custody-riding.trycloudflare.com',
+        target: 'https://demo.angeles-group.org',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => {
