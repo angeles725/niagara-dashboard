@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
 import './App.css';
 
-// In development, calls go to Vite proxy → Niagara tunnel
-// In production (Vercel), calls go to /api/niagara/* serverless functions
+// In development, Vite proxy rewrites /api/niagara to tunnel
+// In production (Vercel), /api/niagara serverless function proxies to Niagara
 const API_BASE = '/api/niagara';
 
 function useNiagaraApi() {
@@ -16,7 +16,9 @@ function useNiagaraApi() {
   const [lastUpdate, setLastUpdate] = useState(null);
 
   const apiFetch = useCallback(async (path) => {
-    const res = await fetch(API_BASE + path);
+    // Remove leading slash from path for query param
+    const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+    const res = await fetch(API_BASE + '?path=' + encodeURIComponent(cleanPath));
     if (!res.ok) throw new Error('HTTP ' + res.status);
     return res.json();
   }, []);

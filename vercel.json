@@ -1,8 +1,5 @@
 {
   "framework": "vite",
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "rewrites": [
-    { "source": "/api/niagara/(.*)", "destination": "/api/niagara/$1" }
-  ]
+  "outputDirectory": "dist"
 }
